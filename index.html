@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Company Search</title>
+</head>
+<body>
+    <h1>Company Search</h1>
+    <input type="text" id="companyName" placeholder="Enter company name">
+    <button onclick="searchCompany()">Search</button>
+    <p id="result"></p>
+
+    <script>
+        async function searchCompany() {
+            const companyName = document.getElementById('companyName').value;
+            const response = await fetch('http://localhost:5000/search', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ company_name: companyName }),
+            });
+            const data = await response.json();
+            document.getElementById('result').textContent = `Match found: ${data.result}`;
+        }
+    </script>
+</body>
+</html>
